@@ -231,7 +231,13 @@ class Body {
   }
 
   blob() {
-    throw new Error('Not implemented yet');
+    var _this = this;
+
+    return this._consume().then(function (buffer) {
+      _this.body = buffer;
+    }).then(function () {
+      return _this.body;
+    });
   }
 
   formData() {
