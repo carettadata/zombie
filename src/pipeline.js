@@ -24,6 +24,7 @@ class Pipeline extends Array {
   }
 
   _fetch(input, init) {
+    init = Object.assign(init || {}, { credentials: 'same-origin' });
     const request   = new Fetch.Request(input, init);
     const browser   = this._browser;
     browser.emit('request', request);
@@ -103,7 +104,7 @@ class Pipeline extends Array {
     assert(handler.length === 2 || handler.length === 3, 'Handler function takes 2 (request handler) or 3 (response handler) arguments');
     this._default.push(handler);
   }
-  
+
   // Remove a request or response handler.
   static removeHandler(handler) {
     assert(handler.call, 'Handler must be a function');
@@ -315,4 +316,3 @@ Pipeline._default = [
 ];
 
 module.exports = Pipeline;
-
